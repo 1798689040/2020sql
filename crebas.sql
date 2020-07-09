@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2020/7/5 10:04:28                            */
+/* Created on:     2020/7/9 8:36:29                             */
 /*==============================================================*/
 
 
@@ -50,15 +50,12 @@ create table Administrator_information_table
 /*==============================================================*/
 create table Bill_collection_and_voucher_delivery_form
 (
-   Bus_Business_ID      varchar(20) not null,
-   Cou_Coupon_ID        varchar(20) not null,
-   Use_User_ID          varchar(20) not null,
-   User_ID              varchar(20) not null,
    Business_ID          varchar(20) not null,
    Coupon_ID            varchar(20) not null,
+   User_ID              varchar(20) not null,
    Required_number_of_orders varchar(20),
    Number_of_orders     varchar(20),
-   primary key (Bus_Business_ID, Cou_Coupon_ID, Use_User_ID)
+   primary key (Business_ID, Coupon_ID, User_ID)
 );
 
 /*==============================================================*/
@@ -92,18 +89,14 @@ create table Commodity_category_table
 /*==============================================================*/
 create table Commodity_evaluation_form
 (
-   Bus_Business_ID2     varchar(20) not null,
-   Use_User_ID          varchar(20) not null,
-   Com_Commodity_ID     varchar(20) not null,
-   Bus_Business_ID      varchar(20) not null,
+   User_ID              varchar(20) not null,
    Commodity_ID         varchar(20) not null,
    Business_ID          varchar(20) not null,
-   User_ID              varchar(20) not null,
    Evaluation_content   varchar(20),
    Evaluation_date      datetime,
    Star_rating          varchar(20),
    Photo                varchar(20),
-   primary key (Bus_Business_ID2, Use_User_ID, Com_Commodity_ID, Bus_Business_ID)
+   primary key (User_ID, Commodity_ID, Business_ID)
 );
 
 /*==============================================================*/
@@ -123,27 +116,19 @@ create table Commodity_list
 /*==============================================================*/
 create table Commodity_order
 (
-   Bus_Business_ID      varchar(20) not null,
-   Commodity_ID         varchar(20) not null,
-   Use_User_ID          varchar(20) not null,
-   Rid_Rider_ID         varchar(20) not null,
-   Ful_Full_minus_ID2   varchar(20) not null,
-   Cou_Coupon_ID        varchar(20) not null,
-   Ful_Full_minus_ID    varchar(20) not null,
-   Cou_Coupon_ID2       varchar(20) not null,
-   Order_ID             varchar(20) not null,
    Business_ID          varchar(20) not null,
+   Commodity_ID         varchar(20) not null,
    User_ID              varchar(20) not null,
    Rider_ID             varchar(20) not null,
+   Coupon_ID            varchar(20) not null,
+   Full_minus_ID        varchar(20) not null,
    Original_amount      varchar(20),
    Settlement_amount    varchar(20),
-   Full_minus_ID        varchar(20),
-   Coupon_ID            varchar(20) not null,
    Order_time           datetime,
    Time_of_service_required datetime,
    Address_number       varchar(20),
    Order_status         varchar(20),
-   primary key (Bus_Business_ID, Commodity_ID, Use_User_ID, Rid_Rider_ID, Ful_Full_minus_ID2, Cou_Coupon_ID, Ful_Full_minus_ID, Cou_Coupon_ID2)
+   primary key (Business_ID, Commodity_ID, User_ID, Rider_ID, Coupon_ID, Full_minus_ID)
 );
 
 /*==============================================================*/
@@ -151,15 +136,12 @@ create table Commodity_order
 /*==============================================================*/
 create table Coupon_holding_form
 (
-   Use_User_ID          varchar(20) not null,
-   Bus_Business_ID      varchar(20) not null,
    User_ID              varchar(20) not null,
-   Coupon_ID            varchar(20) not null,
    Business_ID          varchar(20) not null,
    Preferential_amount  varchar(20),
    Number               varchar(20),
    closing_date         datetime,
-   primary key (Use_User_ID, Bus_Business_ID)
+   primary key (User_ID, Business_ID)
 );
 
 /*==============================================================*/
@@ -221,15 +203,13 @@ create table Order_details
 /*==============================================================*/
 create table Rider_entry
 (
-   Rid_Rider_ID         varchar(20) not null,
-   User_ID              varchar(20) not null,
-   Ord_Order_ID         varchar(20) not null,
    Rider_ID             varchar(20) not null,
+   User_ID              varchar(20) not null,
    Order_ID             varchar(20) not null,
    time                 datetime,
    User_evaluation      varchar(20) not null,
    Single_income        varchar(20),
-   primary key (Rid_Rider_ID, User_ID, Ord_Order_ID)
+   primary key (Rider_ID, User_ID, Order_ID)
 );
 
 /*==============================================================*/
@@ -263,13 +243,13 @@ create table User_information_table
    primary key (User_ID)
 );
 
-alter table Bill_collection_and_voucher_delivery_form add constraint FK_Bill_collection_and_voucher_delivery_form foreign key (Bus_Business_ID)
+alter table Bill_collection_and_voucher_delivery_form add constraint FK_Bill_collection_and_voucher_delivery_form foreign key (Business_ID)
       references Business_information_table (Business_ID) on delete restrict on update restrict;
 
-alter table Bill_collection_and_voucher_delivery_form add constraint FK_Bill_collection_and_voucher_delivery_form foreign key (Cou_Coupon_ID)
+alter table Bill_collection_and_voucher_delivery_form add constraint FK_Bill_collection_and_voucher_delivery_form foreign key (Coupon_ID)
       references Coupon_information_sheet (Coupon_ID) on delete restrict on update restrict;
 
-alter table Bill_collection_and_voucher_delivery_form add constraint FK_Bill_collection_and_voucher_delivery_form foreign key (Use_User_ID)
+alter table Bill_collection_and_voucher_delivery_form add constraint FK_Bill_collection_and_voucher_delivery_form foreign key (User_ID)
       references User_information_table (User_ID) on delete restrict on update restrict;
 
 alter table Commodity_category_table add constraint FK_Relationship_1 foreign key (Commodity_ID)
@@ -278,52 +258,55 @@ alter table Commodity_category_table add constraint FK_Relationship_1 foreign ke
 alter table Commodity_category_table add constraint FK_Relationship_3 foreign key (Business_ID)
       references Business_information_table (Business_ID) on delete restrict on update restrict;
 
-alter table Commodity_evaluation_form add constraint FK_Commodity_evaluation_form foreign key (Bus_Business_ID2)
+alter table Commodity_evaluation_form add constraint FK_Commodity_evaluation_form foreign key (Business_ID)
       references Business_information_table (Business_ID) on delete restrict on update restrict;
 
-alter table Commodity_evaluation_form add constraint FK_Commodity_evaluation_form foreign key (Com_Commodity_ID)
+alter table Commodity_evaluation_form add constraint FK_Commodity_evaluation_form foreign key (Commodity_ID)
       references Commodity_list (Commodity_ID) on delete restrict on update restrict;
 
-alter table Commodity_evaluation_form add constraint FK_Commodity_evaluation_form foreign key (Use_User_ID)
+alter table Commodity_evaluation_form add constraint FK_Commodity_evaluation_form foreign key (User_ID)
       references User_information_table (User_ID) on delete restrict on update restrict;
 
-alter table Commodity_evaluation_form add constraint FK_Commodity_evaluation_form2 foreign key (Bus_Business_ID)
+alter table Commodity_evaluation_form add constraint FK_Commodity_evaluation_form2 foreign key (Business_ID)
       references Business_information_table (Business_ID) on delete restrict on update restrict;
 
-alter table Commodity_order add constraint FK_Commodity_order foreign key (Bus_Business_ID)
+alter table Commodity_order add constraint FK_Commodity_order foreign key (Business_ID)
       references Business_information_table (Business_ID) on delete restrict on update restrict;
 
 alter table Commodity_order add constraint FK_Commodity_order foreign key (Commodity_ID)
       references Commodity_list (Commodity_ID) on delete restrict on update restrict;
 
-alter table Commodity_order add constraint FK_Commodity_order foreign key (Cou_Coupon_ID)
+alter table Commodity_order add constraint FK_Commodity_order foreign key (Coupon_ID)
       references Coupon_information_sheet (Coupon_ID) on delete restrict on update restrict;
 
-alter table Commodity_order add constraint FK_Commodity_order foreign key (Ful_Full_minus_ID2)
+alter table Commodity_order add constraint FK_Commodity_order foreign key (Address_number)
+      references Delivery_address_list (Address_number) on delete restrict on update restrict;
+
+alter table Commodity_order add constraint FK_Commodity_order foreign key (Full_minus_ID)
       references Full_reduction_scheme_table (Full_minus_ID) on delete restrict on update restrict;
 
-alter table Commodity_order add constraint FK_Commodity_order foreign key (Rid_Rider_ID)
+alter table Commodity_order add constraint FK_Commodity_order foreign key (Rider_ID)
       references Rider_information_sheet (Rider_ID) on delete restrict on update restrict;
 
-alter table Commodity_order add constraint FK_Commodity_order foreign key (Use_User_ID)
+alter table Commodity_order add constraint FK_Commodity_order foreign key (User_ID)
       references User_information_table (User_ID) on delete restrict on update restrict;
 
-alter table Commodity_order add constraint FK_Commodity_order2 foreign key (Cou_Coupon_ID2)
+alter table Commodity_order add constraint FK_Commodity_order2 foreign key (Coupon_ID)
       references Coupon_information_sheet (Coupon_ID) on delete restrict on update restrict;
 
-alter table Commodity_order add constraint FK_Commodity_order2 foreign key (Ful_Full_minus_ID)
+alter table Commodity_order add constraint FK_Commodity_order2 foreign key (Full_minus_ID)
       references Full_reduction_scheme_table (Full_minus_ID) on delete restrict on update restrict;
 
-alter table Coupon_holding_form add constraint FK_Coupon_holding_form foreign key (Bus_Business_ID)
+alter table Coupon_holding_form add constraint FK_Coupon_holding_form foreign key (Business_ID)
       references Business_information_table (Business_ID) on delete restrict on update restrict;
 
-alter table Coupon_holding_form add constraint FK_Coupon_holding_form foreign key (Use_User_ID)
+alter table Coupon_holding_form add constraint FK_Coupon_holding_form foreign key (User_ID)
       references User_information_table (User_ID) on delete restrict on update restrict;
 
-alter table Rider_entry add constraint FK_Rider_entry foreign key (Ord_Order_ID)
+alter table Rider_entry add constraint FK_Rider_entry foreign key (Order_ID)
       references Order_details (Order_ID) on delete restrict on update restrict;
 
-alter table Rider_entry add constraint FK_Rider_entry foreign key (Rid_Rider_ID)
+alter table Rider_entry add constraint FK_Rider_entry foreign key (Rider_ID)
       references Rider_information_sheet (Rider_ID) on delete restrict on update restrict;
 
 alter table Rider_entry add constraint FK_Rider_entry foreign key (User_ID)
