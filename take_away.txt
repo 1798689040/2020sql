@@ -1,0 +1,157 @@
+CREATE TABLE `tk_coupon` (
+  `coupon_id` varchar(20) NOT NULL,
+  `coupon_amount` varchar(20) NOT NULL,
+  `coupon_num` varchar(20) NOT NULL,
+  `coupon_starttime` datetime NOT NULL,
+  `coupon_endtime` datetime NOT NULL,
+  PRIMARY KEY (`coupon_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `tk_bus` (
+  `bus_id` varchar(20) NOT NULL,
+  `bus_name` varchar(20) NOT NULL,
+  `bus_star` varchar(20) NOT NULL,
+  `bus_renjunxiaofei` datetime NOT NULL,
+  `bus_zongxiaoliang` datetime NOT NULL,
+  PRIMARY KEY (`bus_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `tk_redu` (
+  `redu_id` varchar(20) NOT NULL,
+  `redu_manjianjine` varchar(20) NOT NULL,
+  `redu_youhuijine` varchar(20) NOT NULL,
+  `redu_kediejia?` varchar(20) NOT NULL,
+  PRIMARY KEY (`redu_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `tk_goods_category` (
+  `goods_category_id` varchar(20) NOT NULL,
+  `goods_category_name` varchar(20) NOT NULL,
+  `goods_category_num` varchar(20) NOT NULL,
+  PRIMARY KEY (`goods_category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tk_goods_detail` (
+  `goods_id` varchar(20) NOT NULL,
+  `goods_category_id` varchar(20) NOT NULL,
+  `goods_name` varchar(20) NOT NULL,
+  `goods_price` varchar(20) NOT NULL,
+  `goods_youhuiprice` varchar(20) NOT NULL,
+  PRIMARY KEY (`goods_id`,`goods_category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `tk_goods_evaluate` (
+  `goods_id` varchar(20) NOT NULL,
+  `bus_id` varchar(20) NOT NULL,
+  `cust_id` varchar(20) NOT NULL,
+  `goods_evaluate_neirong` varchar(20) NOT NULL,
+  `goods_evaluate_time` datetime NOT NULL,
+  `goods_evaluate_star` varchar(20) NOT NULL,
+  `goods_evaluate_photo` varchar(20) NOT NULL,
+  PRIMARY KEY (`goods_id`,`bus_id`,`cust_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `tk_rider` (
+  `rider_id` varchar(20) NOT NULL,
+  `rider_name` varchar(20) NOT NULL,
+  `rider_time` datetime NOT NULL,
+  `rider_identity` varchar(20) NOT NULL,
+  PRIMARY KEY (`rider_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tk_rider_entry` (
+  `rider_id` varchar(20) NOT NULL,
+  `order_id` varchar(20) NOT NULL,
+  `order_time` datetime NOT NULL,
+  `goods_evaluate_neirong` varchar(20) NOT NULL,
+  `rider_danbishouru` varchar(20) NOT NULL,
+  PRIMARY KEY (`rider_id`,`order_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `tk_cust` (
+  `cust_id` varchar(20) NOT NULL,
+  `cust_name` varchar(20) NOT NULL,
+  `cust_gender` datetime NOT NULL,
+  `cust_passwd` varchar(20) NOT NULL,
+  `cust_phone` varchar(20) NOT NULL,
+  `cust_mail` varchar(20) NOT NULL,
+  `cust_city` varchar(20) NOT NULL,
+  `cust_zhucetime` datetime NOT NULL,
+  `cust_vip?` varchar(20) NOT NULL,
+  `cust_vipendtime` datetime NOT NULL,
+  PRIMARY KEY (`cust_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `tk_cust_coupon` (
+  `cust_id` varchar(20) NOT NULL,
+  `coupon_id` varchar(20) NOT NULL,
+  `bus_id` varchar(20) NOT NULL,
+  `redu_youhuijine` varchar(20) NOT NULL,
+  `cust_coupon_num` varchar(20) NOT NULL,
+  `cust_coupon_endtime` datetime NOT NULL,
+  PRIMARY KEY (`cust_id`,`coupon_id`, `bus_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `tk_addcoupon` (
+  `cust_id` varchar(20) NOT NULL,
+  `bus_id` varchar(20) NOT NULL,
+  `coupon_id` varchar(20) NOT NULL,
+  `addcoupon_wantnum` varchar(20) NOT NULL,
+  `addcoupon_hadnum` varchar(20) NOT NULL,
+  PRIMARY KEY (`cust_id`,`bus_id`,`coupon_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `tk_address` (
+  `address_id` varchar(20) NOT NULL,
+  `cust_id` varchar(20) NOT NULL,
+  `address_province` varchar(20) NOT NULL,
+  `address_city` varchar(20) NOT NULL,
+  `address_area` varchar(20) NOT NULL,
+  `address_wantname` varchar(20) NOT NULL,
+  `address_phone` varchar(20) NOT NULL,
+  PRIMARY KEY (`address_id`,`cust_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `tk_goods_order` (
+  `order_id` varchar(20) NOT NULL,
+  `bus_id` varchar(20) NOT NULL,
+  `cust_id` varchar(20) NOT NULL,
+  `rider_id` varchar(20) NOT NULL,
+  `order_startprice` varchar(20) NOT NULL,
+  `order_trueprice` varchar(20) NOT NULL,
+  `redu_id` varchar(20) NOT NULL,
+  `coupon_id` varchar(20) NOT NULL,
+  `order_starttime` datetime NOT NULL,
+  `order_wanttime` datetime NOT NULL,
+  `address_id` varchar(20) NOT NULL,
+  `order_howabout` varchar(20) NOT NULL,
+  PRIMARY KEY (`order_id` , `bus_id`,`cust_id`, `rider_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `tk_order` (
+  `order_id` varchar(20) NOT NULL,
+  `goods_id` varchar(20) NOT NULL,
+  `order_goods_num` varchar(20) NOT NULL,
+  `order_goods_price` varchar(20) NOT NULL,
+  `order_goods_danpinyouhui` varchar(20) NOT NULL,
+  PRIMARY KEY (`order_id`,`goods_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `tk_user` (
+  `user_id` varchar(20) NOT NULL,
+  `user_name` varchar(20) NOT NULL,
+  `user_passswd` varchar(20) NOT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
