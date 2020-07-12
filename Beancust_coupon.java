@@ -3,12 +3,14 @@ package cn.edu.zucc.take_away.model;
 import java.util.Date;
 
 public class Beancust_coupon {
-	  private String cust_id;
-	  private String coupon_id;
-	  private String bus_id;
-	  private int redu_youhuijine;
-	  private int cust_coupon_num;
-	  private Date cust_coupon_endtime;
+
+	private String cust_id;
+	private String coupon_id;
+	private String bus_id;
+	private int redu_youhuijine;
+	private int cust_coupon_num;
+	private Date cust_coupon_endtime;
+
 	public String getCust_id() {
 		return cust_id;
 	}

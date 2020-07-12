@@ -1,10 +1,19 @@
 package cn.edu.zucc.take_away.model;
 
 public class Beanredu {
+	public static final String[] DiscountTitles={"满减编号","满减金额","优惠金额","是否可与优惠券叠加"};
 	private String redu_id;
 	private int redu_manjianjine;
 	private int redu_youhuijine;
-	private boolean kediejia;
+	private boolean kediejiamang;
+	public String getCell(int col){
+		if(col==0) return String.valueOf(redu_id);
+		else if(col==1) return String.valueOf(redu_manjianjine);
+		else if(col==2) return String.valueOf(redu_youhuijine);
+		else if(col==3) return String.valueOf(kediejiamang);
+		else return "";
+	}
+	
 	public String getRedu_id() {
 		return redu_id;
 	}
@@ -24,10 +33,10 @@ public class Beanredu {
 		this.redu_youhuijine = redu_youhuijine;
 	}
 	public boolean isKediejia() {
-		return kediejia;
+		return kediejiamang;
 	}
 	public void setKediejia(boolean kediejia) {
-		this.kediejia = kediejia;
+		this.kediejiamang = kediejiamang;
 	}
 	
 	
