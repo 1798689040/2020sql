@@ -13,7 +13,7 @@ public class Beancust {
 	private String cust_name;
 	private String cust_gender;
 	private String cust_passwd;
-	private int cust_phone;
+	private String cust_phone;
 	private String cust_mail;
 	private String cust_city;
 	private Date cust_zhucetime;
@@ -99,14 +99,14 @@ public class Beancust {
 
 
 
-	public int getCust_phone() {
+	public String getCust_phone() {
 		return cust_phone;
 	}
 
 
 
 
-	public void setCust_phone(int cust_phone) {
+	public void setCust_phone(String cust_phone) {
 		this.cust_phone = cust_phone;
 	}
 
@@ -179,6 +179,8 @@ public class Beancust {
 	public void setCust_vipendtime(Date cust_vipendtime) {
 		this.cust_vipendtime = cust_vipendtime;
 	}
+
+
 
 
 

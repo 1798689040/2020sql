@@ -9,7 +9,7 @@ public class Beanaddress {
 	  private String address_area;
 	  private String address_add;
 	  private String address_wantname;
-	  private int address_phone;
+	  private String address_phone;
 	  public String getCell(int col){
 	    	 if(col==0) return String.valueOf(address_id);
 	 	else if(col==1) return String.valueOf(cust_id);
@@ -63,10 +63,10 @@ public class Beanaddress {
 	public void setAddress_wantname(String address_wantname) {
 		this.address_wantname = address_wantname;
 	}
-	public int getAddress_phone() {
+	public String getAddress_phone() {
 		return address_phone;
 	}
-	public void setAddress_phone(int address_phone) {
+	public void setAddress_phone(String address_phone) {
 		this.address_phone = address_phone;
 	}
 	public static String[] getAddresstitles() {
