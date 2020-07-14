@@ -16,7 +16,7 @@ public class custManager {
 		// TODO Auto-generated method stub
 				Connection conn=null;
 				try {
-					conn=take_awayUtil.getConnection();
+					conn=DBUtil.getConnection();
 					String sql="select * from cust where cust_id=?";
 					java.sql.PreparedStatement pst=conn.prepareStatement(sql);
 					pst.setString(1,userid);
@@ -72,7 +72,7 @@ public class custManager {
 				
 				Connection conn=null;
 				try {
-					conn=take_awayUtil.getConnection();
+					conn=DBUtil.getConnection();
 					//检查用户是否存在
 					String sql="select * from user where user_id=?";
 					java.sql.PreparedStatement pst=conn.prepareStatement(sql);
@@ -138,7 +138,7 @@ public class custManager {
 				
 				Connection conn=null;
 				try {
-					conn=take_awayUtil.getConnection();
+					conn=DBUtil.getConnection();
 					//检查用户是否存在
 					String sql="select * from user where user_id=?";
 					java.sql.PreparedStatement pst=conn.prepareStatement(sql);
@@ -192,7 +192,7 @@ public class custManager {
 		List<Beancust> result=new ArrayList<Beancust>();
 		Connection conn=null;
 		try {
-			conn=take_awayUtil.getConnection();
+			conn=DBUtil.getConnection();
 			String sql="select cust_id,cust_name,cust_gender,cust_passwd,cust_phone,cust_mail,cust_city,cust_zhucetime,cust_shifouvip,cust_vipendtime from cust order by cust_id";
 			java.sql.Statement st=conn.createStatement();
 			java.sql.ResultSet rs=st.executeQuery(sql);
@@ -229,7 +229,7 @@ public class custManager {
 		Beancust p=new Beancust();
 		Connection conn=null;
 		try {
-			conn=take_awayUtil.getConnection();
+			conn=DBUtil.getConnection();
 			String sql="select userid,username,sex,passwd,phonenum,mail,city,regtime,isvip,vipenddate from userinformation order by userid";
 			java.sql.Statement st=conn.createStatement();
 			java.sql.ResultSet rs=st.executeQuery(sql);
@@ -268,7 +268,7 @@ public class custManager {
 			throw new BusinessException("已经是会员");
 		}
 		try {
-			conn=take_awayUtil.getConnection();
+			conn=DBUtil.getConnection();
 			String sql="update userinformation set isvip=?,vipenddate=? where userid=?";
 			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
 			pst.setString(1, "是");

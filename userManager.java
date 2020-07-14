@@ -11,14 +11,14 @@ import cn.edu.zucc.take_away.model.Beanuser;
 import cn.edu.zucc.take_away.util.BaseException;
 import cn.edu.zucc.take_away.util.BusinessException;
 import cn.edu.zucc.take_away.util.DbException;
-import cn.edu.zucc.take_away.util.take_awayUtil;
+import cn.edu.zucc.take_away.util.DBUtil;
 
 public class userManager {
 	public Beanuser login(String userid, String passwd) throws BaseException{
 		// TODO Auto-generated method stub
 				Connection conn=null;
 				try {
-					conn=take_awayUtil.getConnection();
+					conn=DBUtil.getConnection();
 					String sql="select user_id,user_name,user_passwd from user where user_id=?";
 					java.sql.PreparedStatement pst=conn.prepareStatement(sql);
 					pst.setString(1,userid);
@@ -68,7 +68,7 @@ public class userManager {
 				
 				Connection conn=null;
 				try {
-					conn=take_awayUtil.getConnection();
+					conn=DBUtil.getConnection();
 					//检查用户是否存在
 					String sql="select * from user where user_id=?";
 					java.sql.PreparedStatement pst=conn.prepareStatement(sql);
@@ -115,7 +115,7 @@ public class userManager {
 		if(!newPwd.equals(newPwd2)) throw new BusinessException("新密码两次输入不同");
 		Connection conn=null;
 		try {
-			conn=take_awayUtil.getConnection();
+			conn=DBUtil.getConnection();
 			String sql="select user_passwd from user where user_id=?";
 			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
 			pst.setString(1,Beanuser.currentLoginUser.getUser_passswd());
@@ -148,7 +148,7 @@ public class userManager {
 		List<Beanuser> result=new ArrayList<Beanuser>();
 		Connection conn=null;
 		try {
-			conn=take_awayUtil.getConnection();
+			conn=DBUtil.getConnection();
 			String sql="select user_id,user_name,user_passwd from user order by user_id";
 			java.sql.Statement st=conn.createStatement();
 			java.sql.ResultSet rs=st.executeQuery(sql);
