@@ -1,69 +1,112 @@
 package cn.edu.zucc.take_away.ui;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.util.List;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JMenuBar;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
-public class Frmmaincust extends JFrame {
+import cn.edu.zucc.take_away.take_awayUtil;
+import cn.edu.zucc.take_away.control.userManager;
+import cn.edu.zucc.take_away.model.*;
 
-	private JPanel contentPane;
+import cn.edu.zucc.take_away.util.BaseException;
+import cn.edu.zucc.take_away.ui.Frmorder;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Frmmaincust frame = new Frmmaincust();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+
+
+public class Frmmaincust extends JFrame implements ActionListener {
+	private static final long serialVersionUID = 1L;
+	private JMenuBar menubar=new JMenuBar(); 
+	private JMenu menu_cus=new JMenu("我的账号");
+	private JMenu menu_order=new JMenu("订单管理");
+	//private JMenu menu_Merchant=new JMenu("商家管理");
+	//private JMenu menu_user=new JMenu("管理员管理");
+	
+	private JMenuItem menuItem_cuslist=new JMenuItem("用户信息查询");
+	private JMenuItem menuItem_address=new JMenuItem("配送地址查询");
+	private JMenuItem menuItem_coupons=new JMenuItem("优惠券查询");
+		
+	private JMenuItem menuItem_Merchantlist=new JMenuItem("订单管理");
+
+	
+	
+    
+    
+	private FrmLogin1 dlgLogin=null;
+	private JPanel statusBar = new JPanel();
+	
+
+	public Frmmaincust()throws IOException{
+		
+		this.setExtendedState(Frame.MAXIMIZED_BOTH);
+		this.setTitle("外卖助手");
+
+		//this.add(comp)
+	    //菜单
+		menu_cus.add(menuItem_cuslist);
+		menuItem_cuslist.addActionListener(this);
+		menu_cus.add(menuItem_address);
+		menuItem_address.addActionListener(this);
+		menu_cus.add(menuItem_coupons);
+		menuItem_coupons.addActionListener(this);
+		menubar.add(menu_cus);
+		
+		menu_order.add(menuItem_Merchantlist);
+		menuItem_Merchantlist.addActionListener(this);
+		menubar.add(menu_order);
+		
+		this.setJMenuBar(menubar);
+		
+	    //状态栏
+	    statusBar.setLayout(new FlowLayout(FlowLayout.LEFT));
+	    JLabel label=new JLabel("您好!");//修改成   您好！+登陆用户名
+	    statusBar.add(label);
+	    this.getContentPane().add(statusBar,BorderLayout.SOUTH);
+	    this.addWindowListener(new WindowAdapter(){   
+	    	public void windowClosing(WindowEvent e){ 
+	    		//System.exit(0);
+             }
+        });
+	    this.setVisible(true);
+	
+
+	
 	}
-
-	/**
-	 * Create the frame.
-	 */
-	public Frmmaincust() {
-		setVisible(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 664, 368);
-		
-		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
-		
-		JMenu mnNewMenu = new JMenu("\u76EE\u524D\u8BA2\u5355");
-		menuBar.add(mnNewMenu);
-		
-		JMenuItem mntmNewMenuItem = new JMenuItem("\u4FEE\u6539\u8BA2\u5355");
-		mnNewMenu.add(mntmNewMenuItem);
-		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("\u4E0B\u5355");
-		mnNewMenu.add(mntmNewMenuItem_1);
-		
-		JMenu menu_1 = new JMenu("\u5DF2\u5B8C\u6210\u8BA2\u5355");
-		menuBar.add(menu_1);
-		
-		JMenu menu = new JMenu("\u4FEE\u6539\u4E2A\u4EBA\u4FE1\u606F");
-		menuBar.add(menu);
-		
-		JMenuItem menuItem = new JMenuItem("\u7528\u6237\u4FE1\u606F");
-		menu.add(menuItem);
-		
-		JMenuItem menuItem_1 = new JMenuItem("\u914D\u9001\u5730\u5740");
-		menu.add(menuItem_1);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==this.menuItem_address) {
+		//	Frmaddress add= new Frmaddress(this,"地址管理",true);
+			//add.setVisible(true);
+		}
+		if(e.getSource()==this.menuItem_Merchantlist) {
+			Frmorder ord=new Frmorder();
+			ord.setVisible(true);
+		}
+		if(e.getSource()==this.menuItem_cuslist) {
+		//	FrmCcuslist list=new FrmCcuslist(this,"我的账号",true);
+			//list.setVisible(true);
+		}
 	}
+ 
+
+
 }
+
+

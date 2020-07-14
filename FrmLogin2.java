@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 
@@ -32,6 +33,7 @@ public class FrmLogin2 extends JFrame implements ActionListener{
 
 	JButton btnNewButton_1 = new JButton("×¢²á");
 	JButton btnNewButton = new JButton("µÇÂ¼");
+	JButton btnNewButton_2 = new JButton("ÍË³ö");
 	private JPasswordField passwordField;
 
 	/**
@@ -54,6 +56,7 @@ public class FrmLogin2 extends JFrame implements ActionListener{
 	 * Create the frame.
 	 */
 	public FrmLogin2() {
+		 setTitle("ÓÃ»§µÇÂ¼½çÃæ");
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -82,6 +85,10 @@ public class FrmLogin2 extends JFrame implements ActionListener{
 		});
 		btnNewButton.setBounds(22, 179, 97, 23);
 		contentPane.add(btnNewButton);
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		
 
 		btnNewButton_1.setBounds(217, 179, 97, 23);
@@ -90,12 +97,19 @@ public class FrmLogin2 extends JFrame implements ActionListener{
 		passwordField = new JPasswordField();
 		passwordField.setBounds(126, 95, 125, 21);
 		contentPane.add(passwordField);
+		
+
+		btnNewButton_2.setBounds(22, 230, 97, 23);
+		contentPane.add(btnNewButton_2);
 		this.btnNewButton.addActionListener(this);
+		this.btnNewButton_1.addActionListener(this);
+		this.btnNewButton_2.addActionListener(this);
+		//ÍË³ö
 	}
 
 
 
-	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == btnNewButton) {
@@ -108,11 +122,27 @@ public class FrmLogin2 extends JFrame implements ActionListener{
 			JOptionPane.showMessageDialog(null, e1.getMessage(), "´íÎó",JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		
-		Frmmaincust frame = new Frmmaincust();
-		
-		frame.setVisible(true);
-		}
 		setVisible(false);
+		Frmmaincust fra;
+		try {
+			fra = new Frmmaincust();
+			fra.setVisible(true);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			
+		}
+		
+		
+		}
+		else if(e.getSource() == btnNewButton_1) {
+			
+			Frmcustadd lgd = new Frmcustadd();
+			lgd.setVisible(true);
+			setVisible(false);
+		}else if (e.getSource() == this.btnNewButton_2) {
+			System.exit(0);
+		}
+		
 	}
 }

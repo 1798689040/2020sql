@@ -27,6 +27,8 @@ public class FrmLogin3 extends JFrame implements ActionListener{
 	JButton btnNewButton = new JButton("登录");
 	JButton btnNewButton_1 = new JButton("注册");
 	private JPasswordField passwordField;
+	private JButton button;
+	private JButton btnNewButton_2;
 	/**
 	 * Launch the application.
 	 */
@@ -48,6 +50,7 @@ public class FrmLogin3 extends JFrame implements ActionListener{
 	 */
 	public FrmLogin3() {
 		setVisible(true);
+		setTitle("管理员登录界面");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -83,7 +86,12 @@ public class FrmLogin3 extends JFrame implements ActionListener{
 		passwordField = new JPasswordField();
 		passwordField.setBounds(142, 108, 175, 21);
 		contentPane.add(passwordField);
+		
+		button = new JButton("退出");
+		button.setBounds(34, 230, 97, 23);
+		contentPane.add(button);
 		this.btnNewButton.addActionListener(this);
+		this.btnNewButton_1.addActionListener(this);
 	}
 
 	@Override
@@ -102,6 +110,14 @@ public class FrmLogin3 extends JFrame implements ActionListener{
 		Frmmainuser frame = new Frmmainuser();
 		
 		frame.setVisible(true);
+		}
+		else if(e.getSource() == btnNewButton_1){
+			Frmuseradd frame = new Frmuseradd();
+			
+			frame.setVisible(true);
+		}
+		else if (e.getSource() == this.btnNewButton_2) {
+			System.exit(0);
 		}
 		setVisible(false);
 	}

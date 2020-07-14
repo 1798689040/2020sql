@@ -37,6 +37,7 @@ public class FrmLogin1 extends JFrame implements ActionListener{
 	 * Create the frame.
 	 */
 	public FrmLogin1() {
+		setTitle("ÇëÑ¡Ôñ²Ù×÷");
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
